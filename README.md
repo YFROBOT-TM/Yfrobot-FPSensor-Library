@@ -1,5 +1,5 @@
-# Yfrobot-FPM383-Library
-YFROBOT FPM383 Sensor Library for Arduino
+# Yfrobot-FPSensor-Library
+YFROBOT FPSENSOR Sensor Library for Arduino
 
 ![](./assets/Fingerprint_Identification_Sensor.png)
 
@@ -10,15 +10,15 @@ YFROBOT FPM383 Sensor Library for Arduino
 #### 库使用说明：
 调用库：
 
-`#include <yfrobot_fpm383.h>   // 包含头文件`
+`#include <yfrobot_fpsensor.h>   // 包含头文件`
 
 创建对象：
 
 UNO 主板：
-`YFROBOTFPM383 fpm(9, 8);  //软串口引脚，RX：D9    TX：D8`
+`YFROBOTFPSENSOR fpm(9, 8);  //软串口引脚，RX：D9    TX：D8`
 
 ESP32 主板：
-`YFROBOTFPM383 fpm(16, 17); // 使用 ESP32 的硬件串口2，自定义引脚RX：16    TX：17`
+`YFROBOTFPSENSOR fpm(16, 17); // 使用 ESP32 的硬件串口2，自定义引脚RX：16    TX：17`
 
 Methods：
 
@@ -52,7 +52,7 @@ Methods：
 
 
 ## 更新日志 Release Note
-* V0.1.0/V0.0.9    更新库连接，在线库版本失效。 Update Date: 2025-03-19
+* V0.1.1    更新库连接，在线库版本失效。 Update Date: 2025-03-19
 * V0.0.8    修复bug。
             Update Date: 2024-12-17
 * V0.0.7    更新功能：搜索到未认证手指时，默认返回 0xFE；

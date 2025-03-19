@@ -1,7 +1,7 @@
 #######################################
 # Classes, datatypes (KEYWORD1)
 #######################################
-YFROBOTFPM383	KEYWORD1
+YFROBOTFPSENSOR	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)

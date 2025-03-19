@@ -1,16 +1,16 @@
 /******************************************************************************
-  yfrobot_fpm383.cpp
-  YFROBOT FPM383 Sensor Library Source File
+  yfrobot_fpsensor.cpp
+  YFROBOT FPSENSOR Sensor Library Source File
   Update Date: 04-11-2024
   @ YFROBOT
 
   Distributed as-is; no warranty is given.
 ******************************************************************************/
 
-#include "yfrobot_fpm383.h"
+#include "yfrobot_fpsensor.h"
 
 
-YFROBOTFPM383::YFROBOTFPM383(int rxPin, int txPin)
+YFROBOTFPSENSOR::YFROBOTFPSENSOR(int rxPin, int txPin)
 {
     this->_pin_rx = rxPin;
     this->_pin_tx = txPin;
@@ -44,7 +44,7 @@ YFROBOTFPM383::YFROBOTFPM383(int rxPin, int txPin)
   * @param   PS_Databuffer[]: 需要发送的功能协议数组，在上面已有定义
   * @return  None
   */
-void YFROBOTFPM383::sendData(int len, uint8_t PS_Databuffer[]) {
+void YFROBOTFPSENSOR::sendData(int len, uint8_t PS_Databuffer[]) {
     _ss->write(PS_Databuffer, len);
     while (_ss->read() >= 0)
         ;
@@ -55,7 +55,7 @@ void YFROBOTFPM383::sendData(int len, uint8_t PS_Databuffer[]) {
   * @param   Timeout：接收超时时间
   * @return  None
   */
-void YFROBOTFPM383::receiveData(uint16_t Timeout) {
+void YFROBOTFPSENSOR::receiveData(uint16_t Timeout) {
     memset(PS_ReceiveBuffer, 0xFF, sizeof(PS_ReceiveBuffer));  // 清空接收数据变量
     uint8_t i = 0;
     while (_ss->available() == 0 && (--Timeout)) {
@@ -73,7 +73,7 @@ void YFROBOTFPM383::receiveData(uint16_t Timeout) {
   * @param   None
   * @return  bool
   */
-bool YFROBOTFPM383::begin()
+bool YFROBOTFPSENSOR::begin()
 {
     receiveData(1000);
     if(PS_ReceiveBuffer[0] == 0x55){
@@ -87,7 +87,7 @@ bool YFROBOTFPM383::begin()
   * @param   None
   * @return  bool
   */
-String YFROBOTFPM383::getChipSN()
+String YFROBOTFPSENSOR::getChipSN()
 {
     delay(200);  //等待指纹识别模块初始化完成，不可去掉，此期间不能响应命令
     sendData(13, PS_GetChipSN);
@@ -104,7 +104,7 @@ String YFROBOTFPM383::getChipSN()
     return "";
 }
 
-String YFROBOTFPM383::HexToString(uint8_t* data, uint8_t length) {
+String YFROBOTFPSENSOR::HexToString(uint8_t* data, uint8_t length) {
     if (!data || !length) { return ""; }
     String result = "";
     for (uint8_t i = 0; i < length; i++) {
@@ -120,7 +120,7 @@ String YFROBOTFPM383::HexToString(uint8_t* data, uint8_t length) {
   * @param   None
   * @return  None
   */
-void YFROBOTFPM383::sleep()
+void YFROBOTFPSENSOR::sleep()
 {
     sendData(12, PS_SleepBuffer);
 }
@@ -130,7 +130,7 @@ void YFROBOTFPM383::sleep()
   * @param   PS_ControlLEDBuffer[]：需要设置颜色的协议，一般定义在上面
   * @return  None
   */
-void YFROBOTFPM383::controlLED( uint8_t PS_ControlLEDBuffer[] )
+void YFROBOTFPSENSOR::controlLED( uint8_t PS_ControlLEDBuffer[] )
 {
     sendData(16, PS_ControlLEDBuffer);
 }
@@ -146,7 +146,7 @@ void YFROBOTFPM383::controlLED( uint8_t PS_ControlLEDBuffer[] )
   *                 循环次数适用于呼吸、闪烁功能，其他功能中无效，例如在常开、常闭、渐开和渐闭中是无效的；
   * @return  None
   */
-void YFROBOTFPM383::controlLEDC( uint8_t fun, uint8_t start, uint8_t end, uint8_t cycle )
+void YFROBOTFPSENSOR::controlLEDC( uint8_t fun, uint8_t start, uint8_t end, uint8_t cycle )
 {
     uint16_t checksum = 0x44;
     PS_CustomLEDBuffer[10] = (fun);
@@ -170,7 +170,7 @@ void YFROBOTFPM383::controlLEDC( uint8_t fun, uint8_t start, uint8_t end, uint8_
   * @param   None
   * @return  应答包第9位确认码或者无效值0xFF
   */
-uint8_t YFROBOTFPM383::cancel()
+uint8_t YFROBOTFPSENSOR::cancel()
 {
     sendData(12, PS_CancelBuffer);
     receiveData(2000);
@@ -182,7 +182,7 @@ uint8_t YFROBOTFPM383::cancel()
   * @param   None
   * @return  应答包第9位确认码或者无效值0xFF
   */
-uint8_t YFROBOTFPM383::getImage()
+uint8_t YFROBOTFPSENSOR::getImage()
 {
     sendData(12, PS_GetImageBuffer);
     receiveData(2000);
@@ -194,7 +194,7 @@ uint8_t YFROBOTFPM383::getImage()
   * @param   None
   * @return  应答包第9位确认码或者无效值0xFF
   */
-uint8_t YFROBOTFPM383::getChar()
+uint8_t YFROBOTFPSENSOR::getChar()
 {
     sendData(13, PS_GetCharBuffer);
     receiveData(2000);
@@ -207,7 +207,7 @@ uint8_t YFROBOTFPM383::getChar()
   * @param   None
   * @return  应答包第9位确认码或者无效值0xFF
   */
-uint8_t YFROBOTFPM383::searchMB()
+uint8_t YFROBOTFPSENSOR::searchMB()
 {
     sendData(17, PS_SearchMBBuffer);
     receiveData(2000);
@@ -216,10 +216,10 @@ uint8_t YFROBOTFPM383::searchMB()
 
 /**
   * @brief   删除指定指纹模板函数
-  * @param   PageID：需要删除的指纹ID号，取值0 - 49（FPM383F）
+  * @param   PageID：需要删除的指纹ID号，取值0 - 49（FPSENSORF）
   * @return  应答包第9位确认码或者无效值0xFF
   */
-uint8_t YFROBOTFPM383::deleteID(uint16_t PageID)
+uint8_t YFROBOTFPSENSOR::deleteID(uint16_t PageID)
 {
     PS_DeleteBuffer[10] = (PageID>>8);
     PS_DeleteBuffer[11] = (PageID);
@@ -235,7 +235,7 @@ uint8_t YFROBOTFPM383::deleteID(uint16_t PageID)
   * @param   None
   * @return  应答包第9位确认码或者无效值0xFF
   */
-uint8_t YFROBOTFPM383::empty()
+uint8_t YFROBOTFPSENSOR::empty()
 {
     sendData(12, PS_EmptyBuffer);
     receiveData(2000);
@@ -245,11 +245,11 @@ uint8_t YFROBOTFPM383::empty()
 
 /**
   * @brief   自动注册指纹模板函数, 默认采集4次
-  * @param   PageID：注册指纹的ID号，取值0 - 49（FPM383F）
+  * @param   PageID：注册指纹的ID号，取值0 - 49（FPSENSORF）
   * @param   entriesCount：录入（拼接）次数，取值1~12，推荐4~6
   * @return  应答包第9位确认码或者无效值0xFF
   */
-uint8_t * YFROBOTFPM383::autoEnroll(uint16_t PageID, uint8_t entriesCount)
+uint8_t * YFROBOTFPSENSOR::autoEnroll(uint16_t PageID, uint8_t entriesCount)
 {
     static uint8_t backData[3] = {0xFF,0xFF,0xFF};
     uint8_t eC = entriesCount > 12 ? 12 : entriesCount;
@@ -271,10 +271,10 @@ uint8_t * YFROBOTFPM383::autoEnroll(uint16_t PageID, uint8_t entriesCount)
 
 /**
   * @brief   二次封装自动注册指纹函数，实现注册成功闪烁两次绿灯，失败闪烁两次红灯
-  * @param   PageID：注册指纹的ID号，取值0 - 49（FPM383F）
+  * @param   PageID：注册指纹的ID号，取值0 - 49（FPSENSORF）
   * @return  应答包第9位确认码或者无效值0xFF
   */
-uint8_t YFROBOTFPM383::enroll(uint16_t PageID, uint8_t entriesCount)
+uint8_t YFROBOTFPSENSOR::enroll(uint16_t PageID, uint8_t entriesCount)
 {   
     controlLED(PS_BlueLEDBuffer); // 点亮蓝灯，注册开始
     delay(10);
@@ -302,7 +302,7 @@ uint8_t YFROBOTFPM383::enroll(uint16_t PageID, uint8_t entriesCount)
   * @param   None
   * @return  应答包第9位确认码或者无效值0xFF
   */
-uint8_t YFROBOTFPM383::identify(bool NoFingerLED)
+uint8_t YFROBOTFPSENSOR::identify(bool NoFingerLED)
 {
     if(getImage() == 0x00) {
         if(getChar() == 0x00) {
@@ -343,7 +343,7 @@ uint8_t YFROBOTFPM383::identify(bool NoFingerLED)
   * @param   None
   * @return  应答包第11位有效数量或者无效值0xFF
   */
-uint8_t YFROBOTFPM383::inquiry()
+uint8_t YFROBOTFPSENSOR::inquiry()
 {
     sendData(12, PS_ValidTempleteNumBuffer);
     receiveData(2000);
@@ -356,7 +356,7 @@ uint8_t YFROBOTFPM383::inquiry()
 //   * @param   ACK：各个功能函数返回的应答包
 //   * @return  None
 //   */
-// uint8_t YFROBOTFPM383::getSearchID(uint8_t ACK)
+// uint8_t YFROBOTFPSENSOR::getSearchID(uint8_t ACK)
 // {
 // 	if (ACK == 0x00)
 //     {
@@ -377,7 +377,7 @@ uint8_t YFROBOTFPM383::inquiry()
 //   * @param   ACK：注册指纹函数返回的应答包
 //   * @return  None
 //   */
-// void YFROBOTFPM383::ENROLL_ACK_CHECK(uint8_t ACK)
+// void YFROBOTFPSENSOR::ENROLL_ACK_CHECK(uint8_t ACK)
 // {
 //     if(PS_ReceiveBuffer[6] == 0x07)
 //     {

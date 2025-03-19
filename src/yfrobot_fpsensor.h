@@ -1,14 +1,14 @@
 /******************************************************************************
-  yfrobot_fpm383.h
-  YFROBOT FPM383 Sensor Library Source File
+  yfrobot_fpsensor.h
+  YFROBOT FPSENSOR Sensor Library Source File
   Update Date: 04-11-2024
   @ YFROBOT
 
   Distributed as-is; no warranty is given.
 ******************************************************************************/
 
-#ifndef YFROBOTFPM383_H
-#define YFROBOTFPM383_H
+#ifndef YFROBOTFPSENSOR_H
+#define YFROBOTFPSENSOR_H
 
 #include "Arduino.h"
 
@@ -24,7 +24,7 @@
 
 #define RECEIVE_TIMEOUT_VALUE 1000 // Timeout for I2C receive
 
-class YFROBOTFPM383
+class YFROBOTFPSENSOR
 {
   private:
     
@@ -99,7 +99,7 @@ class YFROBOTFPM383
     uint8_t PS_OFFLEDBuffer[16]         = { 0xEF, 0x01, 0xFF, 0xFF, 0xFF, 0xFF, 0x01, 0x00, 0x07, 0x3C, 0x04, 0x00, 0x00, 0x00, 0x00, 0x48 }; // 全灭
 
     uint8_t PS_CustomLEDBuffer[16]      = { 0xEF, 0x01, 0xFF, 0xFF, 0xFF, 0xFF, 0x01, 0x00, 0x07, 0x3C, '\0', '\0', '\0', '\0', '\0', '\0' }; // 自由控制LED
-    // 更多指令集请参见：http://file.yfrobot.com.cn/datasheet/FPM383C%E6%A8%A1%E7%BB%84%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE_V1.2.pdf
+    // 更多指令集请参见：http://file.yfrobot.com.cn/datasheet/FPSENSORC%E6%A8%A1%E7%BB%84%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE_V1.2.pdf
 
     void sendData(int len, uint8_t PS_Databuffer[]);
     void receiveData(uint16_t Timeout);
@@ -107,10 +107,10 @@ class YFROBOTFPM383
 
   public:
     // -----------------------------------------------------------------------------
-    // Constructor - YFROBOTFPM383
+    // Constructor - YFROBOTFPSENSOR
     // -----------------------------------------------------------------------------
-    // YFROBOTFPM383(SERIAL_CLASS *serial, int rxPin, int txPin);
-    YFROBOTFPM383(int rxPin, int txPin);
+    // YFROBOTFPSENSOR(SERIAL_CLASS *serial, int rxPin, int txPin);
+    YFROBOTFPSENSOR(int rxPin, int txPin);
     SERIAL_CLASS *_ss;
     // SoftwareSerial *_ss;
     int _pin_rx;			//RX pin
@@ -136,4 +136,4 @@ class YFROBOTFPM383
 
 };
 
-#endif // YFROBOTFPM383_H
+#endif // YFROBOTFPSENSOR_H

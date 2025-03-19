@@ -5,16 +5,16 @@
    模块常亮蓝灯，表示可以注册指纹，默认拼接4次（可更改）
    绿灯闪烁即灭，表示注册完成
 
-  更多指令集请参见：http://file.yfrobot.com.cn/datasheet/FPM383C%E6%A8%A1%E7%BB%84%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE_V1.2.pdf
+  更多指令集请参见：http://file.yfrobot.com.cn/datasheet/FPSENSORC%E6%A8%A1%E7%BB%84%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE_V1.2.pdf
 
   Author     : YFROBOT ZL
   Website    : www.yfrobot.com.cn
   update Time: 2024-04-11
 */
 
-#include "yfrobot_fpm383.h"
+#include "yfrobot_fpsensor.h"
 
-YFROBOTFPM383 fpm(9, 8);  //软串口引脚，RX：D9    TX：D8
+YFROBOTFPSENSOR fpm(9, 8);  //软串口引脚，RX：D9    TX：D8
 
 int ENROLLID_1 = 0;  // 在此位置注册指纹
 int flag_enroll = 255;

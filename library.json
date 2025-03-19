@@ -1,11 +1,11 @@
 {
     "name": "Yfrobot Fingerprint Identification Sensor Library",
-    "keywords": "yfrobot, Fingerprint, FPM383C, FPM383D, FPM383F",
+    "keywords": "yfrobot, Fingerprint, FPSENSORC, FPSENSORD, FPSENSORF",
     "description": "Library that makes Fingerprint Identification sensor work easy to use.",
     "repository":
     {
         "type": "git",
-        "url": "https://github.com/YFROBOT-TM/Yfrobot-FPM383-Library.git"
+        "url": "https://github.com/YFROBOT-TM/Yfrobot-FPSensor-Library.git"
     },
     "frameworks": "arduino",
     "platforms": [
