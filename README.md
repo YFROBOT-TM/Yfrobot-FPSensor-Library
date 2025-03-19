@@ -52,7 +52,7 @@ Methods：
 
 
 ## 更新日志 Release Note
-* V0.1.2    更新库连接，在线库版本失效。 Update Date: 2025-03-19
+* V0.1.3    更新库连接，在线库版本失效。 Update Date: 2025-03-19
 * V0.0.8    修复bug。
             Update Date: 2024-12-17
 * V0.0.7    更新功能：搜索到未认证手指时，默认返回 0xFE；

@@ -1,5 +1,5 @@
 {
-    "name": "Yfrobot Fingerprint Identification Sensor Library",
+    "name": "Yfrobot FPSensor Library",
     "keywords": "yfrobot, Fingerprint, FPSENSORC, FPSENSORD, FPSENSORF",
     "description": "Library that makes Fingerprint Identification sensor work easy to use.",
     "repository":
